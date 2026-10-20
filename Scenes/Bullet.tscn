@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://pretcqofahdo"]
+
+[ext_resource type="Script" uid="uid://c1nobo2fla51a" path="res://Scripts/Bullet.gd" id="1_14k46"]
+[ext_resource type="Texture2D" uid="uid://bx8i2p5k5qxi6" path="res://Sprite/Tilemap/tilemap_packed.png" id="1_vlxeq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_14k46"]
+atlas = ExtResource("1_vlxeq")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vlxeq"]
+radius = 1.4878435
+height = 4.0000005
+
+[node name="Bullet" type="Area2D" unique_id=721020880]
+script = ExtResource("1_14k46")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=46064288]
+scale = Vector2(0.2, 0.2)
+texture = SubResource("AtlasTexture_14k46")
+region_enabled = true
+region_rect = Rect2(65.24126, 68.7421, 13.377922, 7.2838364)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=641412933]
+rotation = 1.5707964
+scale = Vector2(0.67211366, 0.68000007)
+shape = SubResource("CapsuleShape2D_vlxeq")

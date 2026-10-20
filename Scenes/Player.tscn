@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://77inwwfbthdj"]
+
+[ext_resource type="Script" uid="uid://btthlha5qf3yj" path="res://Scripts/Player.gd" id="1_kyqiw"]
+[ext_resource type="Texture2D" uid="uid://bx8i2p5k5qxi6" path="res://Sprite/Tilemap/tilemap_packed.png" id="1_rpqav"]
+[ext_resource type="Script" uid="uid://d087cupfbfotv" path="res://Scripts/components/HealthComponent.gd" id="3_gntrk"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kyqiw"]
+custom_solver_bias = 0.032
+radius = 22.0
+height = 44.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gntrk"]
+atlas = ExtResource("1_rpqav")
+margin = Rect2(0, 16, 0, 16)
+
+[sub_resource type="Animation" id="Animation_kyqiw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.40998355, 0.010287713, 0.078698315, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_gntrk"]
+resource_name = "hurt"
+length = 0.46
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.06, 0.23000002, 0.39),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.40998355, 0.010287713, 0.078698315, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dewec"]
+_data = {
+&"RESET": SubResource("Animation_kyqiw"),
+&"hurt": SubResource("Animation_gntrk")
+}
+
+[node name="Player" type="CharacterBody2D" unique_id=954708833 groups=["player"]]
+script = ExtResource("1_kyqiw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=969968851]
+position = Vector2(-1, 0)
+shape = SubResource("CapsuleShape2D_kyqiw")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=77019968]
+modulate = Color(0.40998355, 0.010287713, 0.078698315, 1)
+position = Vector2(-0.5, 0.25)
+scale = Vector2(3, 3)
+texture = SubResource("AtlasTexture_gntrk")
+region_enabled = true
+region_rect = Rect2(0, 80.79974, 16.9833, 15.368286)
+
+[node name="Muzzle" type="Marker2D" parent="." unique_id=1783324650]
+position = Vector2(27, 9)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1088212413]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=746143917]
+root_node = NodePath("../Muzzle")
+libraries/ = SubResource("AnimationLibrary_dewec")
+playback_auto_capture = false
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1580177411]
+script = ExtResource("3_gntrk")
